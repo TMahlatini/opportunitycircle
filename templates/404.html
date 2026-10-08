@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% set page_title = "Page not found" %}
+
+{% block content %}
+{% include "mast.html" %}
+<section class="missing">
+  <p class="kicker">Error 404</p>
+  <h1>This page is outside the circle.</h1>
+  <p>The page you are looking for does not exist or may have moved.</p>
+  <a class="home-link" href="{{ href_for('index') }}">Back to home</a>
+</section>
+{% endblock %}

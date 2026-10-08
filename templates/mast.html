@@ -1,0 +1,15 @@
+<header class="bar">
+  <a class="wordmark" href="{{ href_for('index') }}">{{ config.SITE_NAME }}</a>
+  <nav aria-label="Primary">
+    {% if request.endpoint == 'index' %}
+    <a href="{{ href_for('index') }}" aria-current="page">Home</a>
+    {% else %}
+    <a href="{{ href_for('index') }}">Home</a>
+    {% endif %}
+    {% if request.endpoint == 'about' %}
+    <a href="{{ href_for('about') }}" aria-current="page">The Team</a>
+    {% else %}
+    <a href="{{ href_for('about') }}">The Team</a>
+    {% endif %}
+  </nav>
+</header>

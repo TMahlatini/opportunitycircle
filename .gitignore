@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+.DS_Store
+contracts/
+data/
+docs/
+.agents/
+skills-lock.json
+.htmlhintrc
+AGENTS.md
+README.md

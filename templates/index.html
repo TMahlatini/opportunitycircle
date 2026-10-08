@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include "mast.html" %}
+
+<section class="spread" data-fade>
+  <p class="question">
+    The 2026 Innovation Challenge convened by <a href="https://www.edmattersafrica.org/">Education Matters</a> and <a href="https://www.kutunga.org/">Kutunga</a> brings teams together to work on one problem: how Zimbabweans
+    can turn their education, skills and experience into sustainable income. It is about using
+    technology, innovation and collaboration to build an income that lasts, whether that comes
+    through employment, entrepreneurship, freelancing, digital work or another form of economic
+    participation.
+  </p>
+  <div id="verify">
+    <h2>Research and verification</h2>
+    <p class="dek">We are looking for Zimbabweans willing to share their experience so we can build a solution that starts from the ground up. Help us understand the status quo better by filling in <a href="https://forms.gle/QBgqBTtKNnBJ1nLQ7">this form</a>. This page provides verification for anyone who encountered our survey and wants to confirm our work. For questions or feedback, email <a href="mailto:{{ config.CONTACT_EMAIL }}">{{ config.CONTACT_EMAIL }}</a>.</p>
+    <div class="parts">
+      <article>
+        <h3>Who are we?</h3>
+        <p>Opportunity Circle is one of the participating teams in the 2026 Innovation Challenge. You can find all the team members on the <a href="{{ href_for('about') }}">here</a>.</p>
+      </article>
+      <article>
+        <h3>What are we asking?</h3>
+        <p>Questions about studies, skills, work experience, and income goals. Participation is voluntary. Responses are used to inform our solution.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<section class="cover fade-load">
+  <div class="clock-block"
+       data-countdown
+       data-end="{{ countdown.end.isoformat() }}"
+       data-launch="{{ config.LAUNCH_LABEL }}"
+       {% if countdown.is_complete %}data-complete{% endif %}>
+    <p class="kicker" data-countdown-label>{% if countdown.is_complete %}Solution launched{% else %}Solution launches in{% endif %}</p>
+    <div class="clock" aria-hidden="true">
+      <p class="days"><span data-unit="days">{{ "%02d" | format(countdown.days) }}</span></p>
+      <p class="unit">Days</p>
+      <div class="hms">
+        <p><span data-unit="hours">{{ "%02d" | format(countdown.hours) }}</span><span class="unit">Hours</span></p>
+        <p><span data-unit="minutes">{{ "%02d" | format(countdown.minutes) }}</span><span class="unit">Minutes</span></p>
+        <p><span data-unit="seconds">{{ "%02d" | format(countdown.seconds) }}</span><span class="unit">Seconds</span></p>
+      </div>
+    </div>
+    <p class="deadline">{{ config.LAUNCH_LABEL }}</p>
+    <p class="visually-hidden" aria-live="polite" data-countdown-announce>
+      {{ countdown.days }} days remaining until {{ config.LAUNCH_LABEL }}.
+    </p>
+    <form class="subscribe embeddable-buttondown-form" id="subscribe" method="post" action="https://buttondown.com/api/emails/embed-subscribe/opportunitycircle">
+      <p class="subscribe-caption" id="subscribe-caption">If you are interested in our work and potential solution, you can leave your email address below for a one time newsletter detailing our findings and solution.</p>
+      <div class="subscribe-row">
+        <label class="visually-hidden" for="bd-email">Enter your email</label>
+        <input id="bd-email" name="email" type="email" autocomplete="email" required placeholder="Email address" aria-describedby="subscribe-caption">
+        <button type="submit">Subscribe</button>
+      </div>
+      <p class="subscribe-credit">
+        <a href="https://buttondown.com/refer/opportunitycircle" target="_blank" rel="noopener noreferrer">Powered by Buttondown.</a>
+      </p>
+    </form>
+  </div>
+</section>
+{% endblock %}

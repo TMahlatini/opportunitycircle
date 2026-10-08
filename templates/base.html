@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {%- set full_title = (page_title ~ " | " ~ config.SITE_NAME) if page_title is defined else (config.SITE_NAME ~ " | " ~ config.SITE_TAGLINE) -%}
+  {%- set description = page_description if page_description is defined else config.SITE_DESCRIPTION -%}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ full_title }}</title>
+  <meta name="description" content="{{ description }}">
+  <meta name="theme-color" content="#f4f0e6">
+  {% if export_depth == "404" %}
+  <script>
+    (function () {
+      var parts = location.pathname.split("/");
+      if (parts.length && parts[parts.length - 1] === "") parts.pop();
+      if (parts.length && parts[parts.length - 1].indexOf(".") !== -1) parts.pop();
+      for (;;) {
+        var prefix = parts.join("/");
+        var url = prefix + "/static/img/favicon.svg";
+        var xhr = new XMLHttpRequest();
+        xhr.open("HEAD", url, false);
+        var found = false;
+        try {
+          xhr.send(null);
+          found = xhr.status === 200;
+        } catch (error) {}
+        if (found) {
+          var base = document.createElement("base");
+          base.href = prefix + "/";
+          document.head.appendChild(base);
+          return;
+        }
+        if (!parts.length) return;
+        parts.pop();
+      }
+    })();
+  </script>
+  {% endif %}
+  {% if export_depth is none %}
+  <link rel="canonical" href="{{ site_url }}{{ request.path }}">
+  {% endif %}
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ config.SITE_NAME }}">
+  <meta property="og:title" content="{{ full_title }}">
+  <meta property="og:description" content="{{ description }}">
+  {% if export_depth is none %}
+  <meta property="og:url" content="{{ site_url }}{{ request.path }}">
+  <meta property="og:image" content="{{ site_url }}{{ url_for('static', filename='img/og-image.png') }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  {% endif %}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ full_title }}">
+  <meta name="twitter:description" content="{{ description }}">
+  {% if export_depth is none %}
+  <meta name="twitter:image" content="{{ site_url }}{{ url_for('static', filename='img/og-image.png') }}">
+  {% endif %}
+
+  <script>document.documentElement.classList.add("js")</script>
+  <link rel="icon" href="{{ asset('img/favicon.svg') }}" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+  <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+  <script src="{{ asset('js/main.js') }}" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="main">
+    {% block content %}{% endblock %}
+  </div>
+  <!-- <footer class="site-footer{% if request.endpoint == 'about' %} is-about{% endif %}">
+    <p>Africa Career Networks · Education Matters · Kutunga</p>
+  </footer> -->
+</body>
+</html>
